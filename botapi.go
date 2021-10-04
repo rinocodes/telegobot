@@ -78,8 +78,7 @@ func (bot *TeleGoBot) RunLongPolling() {
 			for _, entity := range message.Message.Entities {
 				if entity.Type == "bot_command" {
 					messageType = entity.Type
-					// 				incomingMessages.Result[imess].Type = "Command"
-					// 				messageData = message.Message.Text
+					messageData = message.Message.Text
 					userID = message.Message.From.Id
 				}
 			}
@@ -93,10 +92,10 @@ func (bot *TeleGoBot) RunLongPolling() {
 			// 			messageData = message.HandlerFunction.Name
 			// 			fromid = message.HandlerFunction.From.Id
 			// 		}
-			// 		if messageData == "" {
-			// 			incomingMessages.Result[imess].Type = "Text"
-			// 			messageData = message.Message.Text
-			// 		}
+			if messageData == "" {
+				messageType = "Text"
+				messageData = message.Message.Text
+			}
 
 			inValue := make([]reflect.Value, 4)
 			inValue[0] = reflect.ValueOf(messageType)
